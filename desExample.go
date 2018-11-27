@@ -9,9 +9,13 @@ import (
 func padding(src []byte, blocksize int) []byte  {
 
 	n := len(src)
+	//fmt.Println(n)
 	padnum := blocksize-n%blocksize
+	//fmt.Println(padnum)
 	pad := bytes.Repeat([]byte{byte(padnum)},padnum)
+	//fmt.Println(pad)
 	dst := append(src,pad...)
+//	fmt.Println(dst)
 	return dst
 }
 
@@ -29,6 +33,7 @@ func EncryptoDES(src []byte, key []byte) []byte  {
 	src = padding(src,block.BlockSize())
 	//这里默认iv=key,iv为偏移量
 	blockmode := cipher.NewCBCEncrypter(block,key)
+	cipher.NewCTR(block,key)
 	blockmode.CryptBlocks(src,src)
 	return src
 }
