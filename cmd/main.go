@@ -67,12 +67,16 @@ func main() {
 	//
 	//fmt.Println(string(dec), err)
 
-	//公私钥签名--验签
-	sig, err := cryptoExample.RsaSign([]byte(theMSG),privatekey)
-	fmt.Println(string(sig),err)
+	////公私钥签名--验签
+	//sig, err := cryptoExample.RsaSign([]byte(theMSG),privatekey)
+	//fmt.Println(string(sig),err)
+	//
+	//err1 := cryptoExample.RsaSignVerity([]byte(theMSG),sig,publickey)
+	//fmt.Println(err1)
+	//
 
-	err1 := cryptoExample.RsaSignVerity([]byte(theMSG),sig,publickey)
-	fmt.Println(err1)
+	//ecdsa
+
 
 }
 
