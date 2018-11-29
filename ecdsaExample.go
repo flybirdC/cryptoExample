@@ -115,6 +115,32 @@ func GetSignEcdsa(signature string) (rint, sint big.Int,err error) {
 		err = errors.New("decode fail")
 		return
 	}
+	err = rint.UnmarshalText([]byte(rs[0]))
+	if err != nil {
+		err = errors.New("decrypt rint fail, "+err.Error())
+		return
+	}
+	err = sint.UnmarshalText([]byte(rs[1]))
+	if err != nil {
+		err = errors.New("decrypt sint fail, "+err.Error())
+		return
+	}
 
+	return
 }
+
+/**
+校验文本内容是否与签名一致
+使用公钥校验签名和文本内容
+*/
+func VerifyEcdsa(text []byte, signature string, key ecdsa.PublicKey) (bool,error)  {
+	rint, sint, err := GetSignEcdsa(signature)
+	if err != nil {
+		return false, nil
+	}
+	result := ecdsa.Verify(&key,text,&rint,&sint)
+	return result, nil
+}
+
+
 
